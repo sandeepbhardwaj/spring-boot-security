@@ -20,3 +20,18 @@ protected void configure(HttpSecurity http) throws Exception {
             .httpBasic();
 }
 ```
+
+## UserDetailService to add user
+```java
+@Bean
+@Override
+public UserDetailsService userDetailsService() {
+    UserDetails user =
+            User.withDefaultPasswordEncoder()
+                    .username("user")
+                    .password("password")
+                    .roles("USER")
+                    .build();
+    return new InMemoryUserDetailsManager(user);
+}
+```
