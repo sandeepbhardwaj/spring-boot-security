@@ -1,0 +1,35 @@
+server:
+  port: 8081
+  servlet:
+    session:
+      cookie:
+        name: UISESSION
+      timeout: 5s
+      connection-timeout: 5s
+
+
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          custom-provider:
+            client-id: myclient
+            client-secret: secret
+            client-authentication-method: basic
+            authorization-grant-type: authorization_code
+            scope: read
+            redirectUri: http://localhost:8081/login/oauth2/code/custom-provider
+            provider: custom-provider
+        provider:
+          custom-provider:
+            authorization-uri: http://localhost:8080/oauth/authorize
+            token-uri: http://localhost:8080/oauth/token
+            userInfoUri: http://localhost:8080/user-info
+            userNameAttribute: username
+
+
+logging:
+  level:
+    root: debug
