@@ -1,0 +1,9 @@
+server:
+  servlet:
+    session:
+      cookie:
+        name: PROVIDER
+
+logging:
+  level:
+    root: info
