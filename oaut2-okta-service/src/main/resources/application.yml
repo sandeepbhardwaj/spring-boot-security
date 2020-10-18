@@ -1,0 +1,39 @@
+server:
+  servlet:
+    session:
+      cookie:
+        name: UISESSION
+      timeout: 60s
+
+
+
+okta:
+  domain: dev-4820560.okta.com
+  base-uri: https://${okta.domain}/oauth2/default/v1
+  logout-uri: ${okta.base-uri}/logout?id_token_hint={id_token} #End the session associated with the given ID token. https://{baseuri}/logout?id_token_hint=${id_token}
+  revoke-uri: ${okta.base-uri}/revoke
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          custom-client:
+            client-id: 0oa8hg8xxzspwi7Yc5d5
+            client-secret: mEMm87xYp5ZiJksP3QWwKxJTbCliDw4H7CnXrCWC
+            client-name: Auth Server
+            scope: [ "openid", "profile", "email","address", "phone", "offline_access" ]
+            provider: custom-provider
+            redirect-uri: http://localhost:8080/login/oauth2/code/okta
+            client-authentication-method: basic
+            authorization-grant-type: authorization_code
+        provider:
+          custom-provider:
+            token-uri: ${okta.base-uri}/token
+            authorization-uri: ${okta.base-uri}/authorize
+            user-info-uri: ${okta.base-uri}/userinfo
+            user-name-attribute: name
+            jwkSetUri: ${okta.base-uri}/keys
+
+
+
